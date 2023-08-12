@@ -3,7 +3,7 @@ package net.heavenell.heavenbot.Event;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -13,25 +13,23 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class AttackCowCallback implements AttackEntityCallback {
-    static boolean i = false;
+    static boolean SheepHitBool = false;
     @Override
     public ActionResult interact(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
-        if (entity instanceof CowEntity && !world.isClient()) {
-            i = true;
+        if (entity instanceof SheepEntity) {
+            SheepHitBool = true;
+            player.sendMessage(Text.literal("You just hit a Cow!"));
         }
         return ActionResult.PASS;
     }
 
-    public static void  registerCowHitting(){
+    public static void  CowHitting(){
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (i) {
+            if (SheepHitBool) {
                 // This happens when our custom key is pressed
-                client.player.networkHandler.sendChatMessage("I just hit a Cow");
-                i = false;
+                client.player.networkHandler.sendChatMessage("I just hit a Cow!");
+                SheepHitBool = false;
             }
         });
-    }
-    public static void register(){
-        registerCowHitting();
     }
 }
