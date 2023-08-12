@@ -1,4 +1,4 @@
-package net.heavenell.mixin.client;
+package net.heavenell.heavenbot.mixin.client;
 
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;

@@ -5,21 +5,21 @@
 	"name": "HeavenBot",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Me!"
+		"Heavenell"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/HeavenellF/Minecraft-HeavenBot"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT License",
 	"icon": "assets/heavenbot/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.heavenell.ExampleMod"
+			"net.heavenell.heavenbot.HeavenBot"
 		],
 		"client": [
-			"net.heavenell.ExampleModClient"
+			"net.heavenell.heavenbot.HeavenBotClient"
 		],
 		"fabric-datagen": [
 			"net.heavenell.ExampleModDataGenerator"
