@@ -16,7 +16,7 @@ public class KeyInputHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(drinkingKey.wasPressed()) {
                 // This happens when our custom key is pressed
-                client.player.networkHandler.sendChatMessage("Hi");
+                client.player.networkHandler.sendChatMessage("/roll");
             }
         });
     }

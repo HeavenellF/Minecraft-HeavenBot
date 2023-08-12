@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.heavenell.heavenbot.Event.AttackCowCallback;
 import net.heavenell.heavenbot.Event.KeyInputHandler;
-import net.heavenell.heavenbot.Event.PlayerAttackCallback;
+import net.heavenell.heavenbot.gamechat.AutoAccept;
 import net.heavenell.heavenbot.gamechat.AutoResponse;
 
 public class HeavenBotClient implements ClientModInitializer {
@@ -15,10 +15,12 @@ public class HeavenBotClient implements ClientModInitializer {
 		KeyInputHandler.register();
 
 		AttackEntityCallback.EVENT.register(new AttackCowCallback());
-		AttackEntityCallback.EVENT.register(new PlayerAttackCallback());
 
 		ClientReceiveMessageEvents.CHAT.register(new AutoResponse());
+		ClientReceiveMessageEvents.GAME.register(new AutoAccept());
+
 		AutoResponse.autoresponse();
+		AutoAccept.autoresponse();
 		AttackCowCallback.CowHitting();
 	}
 }
