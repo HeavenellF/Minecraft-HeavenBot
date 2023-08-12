@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.network.message.MessageType;
 import net.minecraft.network.message.SignedMessage;
 import net.minecraft.text.Text;
-import net.minecraft.util.profiling.jfr.InstanceType;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.Instant;
@@ -33,7 +32,7 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
     public static void  autoresponse() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (response) {
-                client.player.networkHandler.sendChatMessage("Yeah?");
+                client.player.networkHandler.sendChatMessage("Konkoyo~!");
                 response = false;
             }
         });
