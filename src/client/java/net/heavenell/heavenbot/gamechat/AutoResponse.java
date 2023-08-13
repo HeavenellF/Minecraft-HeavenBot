@@ -21,42 +21,38 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
     private Instant lastResponseTime = Instant.MIN;
 
     private static final String STRING_ONEMOMENT = ",onemoment";
-    private static final String KOYORIOP_PATH = "KoyoriOP.json";
+    private static final String STRING_CHU = ",chu";
+    private static final String STRING_RARE_RESPONSE = "mwwah!";
+    private static final String KOYORIOP_PATH = "/KoyoriOP.json";
     private static String[] responses;
+    private static String senderName;
     @Override
     public void onReceiveChatMessage(Text message, @Nullable SignedMessage signedMessage, @Nullable GameProfile sender, MessageType.Parameters params, Instant receptionTimestamp) {
         String messageString = Text.Serializer.toJson(message).toLowerCase();
         if (messageString.contains("heaven") && !sender.getName().equals("Heavenell")) {
-            Duration cooldownDuration = Duration.ofSeconds(10);
+            Duration cooldownDuration = Duration.ofSeconds(1);
             Instant currentTime = Instant.now();
             Duration timeSinceLastResponse = Duration.between(lastResponseTime, currentTime);
 
             if (timeSinceLastResponse.compareTo(cooldownDuration) >= 0) {
                 response = true;
                 lastResponseTime = currentTime;
+                senderName = sender.getName();
             }
         }
     }
 
     public static void loadResponses() {
         try {
-            InputStream inputStream = AutoResponse.class.getResourceAsStream("/" + KOYORIOP_PATH);
-            if (inputStream == null) {
-                System.out.println("Input stream is null.");
-                return;
-            }
-
+            InputStream inputStream = AutoResponse.class.getResourceAsStream(KOYORIOP_PATH);
             JsonArray responsesArray = new JsonParser().parse(
                     new InputStreamReader(inputStream)
             ).getAsJsonArray();
-
-            System.out.println("Responses loaded: " + responsesArray.toString());
 
             responses = new String[responsesArray.size()];
             for (int i = 0; i < responsesArray.size(); i++) {
                 responses[i] = responsesArray.get(i).getAsString();
             }
-
             inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,8 +66,14 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
                     Random random = new Random();
                     int randomIndex = random.nextInt(responses.length);
                     String randomResponse = responses[randomIndex];
-                    client.player.networkHandler.sendChatMessage(STRING_ONEMOMENT);
-                    client.player.networkHandler.sendChatMessage(randomResponse);
+                    if (randomResponse == "chu"){
+                        client.player.networkHandler.sendChatMessage(STRING_CHU);
+                        client.player.networkHandler.sendChatMessage(senderName + ", " + STRING_RARE_RESPONSE);
+                    }
+                    else {
+                        client.player.networkHandler.sendChatMessage(STRING_ONEMOMENT);
+                        client.player.networkHandler.sendChatMessage(randomResponse);
+                    }
                 }
                 response = false;
             }
