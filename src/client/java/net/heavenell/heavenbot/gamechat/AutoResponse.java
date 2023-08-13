@@ -10,16 +10,18 @@ import net.minecraft.network.message.SignedMessage;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Instant;
 import java.time.Duration;
+import java.util.Random;
 
 public class AutoResponse implements ClientReceiveMessageEvents.Chat{
     private static boolean response = false;
     private Instant lastResponseTime = Instant.MIN;
 
     private static final String STRING_ONEMOMENT = ",onemoment";
-    private static final String KOYORIOP_PATH = "list/KoyoriOP.json";
+    private static final String KOYORIOP_PATH = "KoyoriOP.json";
     private static String[] responses;
     @Override
     public void onReceiveChatMessage(Text message, @Nullable SignedMessage signedMessage, @Nullable GameProfile sender, MessageType.Parameters params, Instant receptionTimestamp) {
@@ -38,14 +40,24 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
 
     public static void loadResponses() {
         try {
+            InputStream inputStream = AutoResponse.class.getResourceAsStream("/" + KOYORIOP_PATH);
+            if (inputStream == null) {
+                System.out.println("Input stream is null.");
+                return;
+            }
+
             JsonArray responsesArray = new JsonParser().parse(
-                    new InputStreamReader(AutoResponse.class.getResourceAsStream(KOYORIOP_PATH))
+                    new InputStreamReader(inputStream)
             ).getAsJsonArray();
+
+            System.out.println("Responses loaded: " + responsesArray.toString());
 
             responses = new String[responsesArray.size()];
             for (int i = 0; i < responsesArray.size(); i++) {
                 responses[i] = responsesArray.get(i).getAsString();
             }
+
+            inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,8 +66,13 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
     public static void sendchat() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (response) {
-                client.player.networkHandler.sendChatMessage(",onemoment");
-                client.player.networkHandler.sendChatMessage("Konkoyo~!");
+                if (responses != null && responses.length > 0) {
+                    Random random = new Random();
+                    int randomIndex = random.nextInt(responses.length);
+                    String randomResponse = responses[randomIndex];
+                    client.player.networkHandler.sendChatMessage(STRING_ONEMOMENT);
+                    client.player.networkHandler.sendChatMessage(randomResponse);
+                }
                 response = false;
             }
         });
