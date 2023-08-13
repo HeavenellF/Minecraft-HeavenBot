@@ -66,7 +66,7 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
                     Random random = new Random();
                     int randomIndex = random.nextInt(responses.length);
                     String randomResponse = responses[randomIndex];
-                    if (randomResponse == "chu"){
+                    if (randomResponse.equals("chu")){
                         client.player.networkHandler.sendChatMessage(STRING_CHU);
                         client.player.networkHandler.sendChatMessage(senderName + ", " + STRING_RARE_RESPONSE);
                     }
