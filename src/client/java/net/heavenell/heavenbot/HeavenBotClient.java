@@ -20,6 +20,8 @@ public class HeavenBotClient implements ClientModInitializer {
 		ClientReceiveMessageEvents.GAME.register(new AutoAccept());
 
 		AutoResponse.autoresponse();
+		AutoResponse.loadResponses();
+
 		AutoAccept.autoresponse();
 		AttackCowCallback.CowHitting();
 	}
