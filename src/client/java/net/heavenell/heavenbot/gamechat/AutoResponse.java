@@ -32,6 +32,7 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
     public static void  autoresponse() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (response) {
+                client.player.networkHandler.sendChatMessage(",onemoment");
                 client.player.networkHandler.sendChatMessage("Konkoyo~!");
                 response = false;
             }
