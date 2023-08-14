@@ -9,7 +9,7 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
     @Override
     public void onReceiveGameMessage(Text message, boolean overlay) {
         String messageString = Text.Serializer.toJson(message).toLowerCase();
-        if (messageString.contains("joined the game")) {
+        if (messageString.contains("multiplayer.player.joined")) {
             response = true;
         }
     }

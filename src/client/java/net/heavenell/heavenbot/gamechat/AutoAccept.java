@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.text.Text;
 
 public class AutoAccept implements ClientReceiveMessageEvents.Game{
-
     private static boolean response = false;
     @Override
     public void onReceiveGameMessage(Text message, boolean overlay) {
