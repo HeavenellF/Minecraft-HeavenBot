@@ -6,7 +6,7 @@ import net.minecraft.text.Text;
 
 public class AutoAccept implements ClientReceiveMessageEvents.Game{
 
-    static boolean response = false;
+    private static boolean response = false;
     @Override
     public void onReceiveGameMessage(Text message, boolean overlay) {
         String messageString = Text.Serializer.toJson(message).toLowerCase();
