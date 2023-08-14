@@ -17,7 +17,7 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
     public static void sendchat() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (response) {
-                client.player.networkHandler.sendChatCommand("Hi");
+                client.player.networkHandler.sendChatMessage("Hi");
                 response = false;
             }
         });
