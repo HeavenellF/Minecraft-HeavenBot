@@ -38,6 +38,7 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
                 response = true;
                 lastResponseTime = currentTime;
                 senderName = sender.getName();
+                sendchat();
             }
         }
     }
