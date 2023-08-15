@@ -25,6 +25,7 @@ public class HeavenBotClient implements ClientModInitializer {
 		AutoResponse.loadResponses();
 
 		AutoGreeting.sendchat();
+		AutoGreeting.loadGreetings();
 
 		AutoAccept.sendchat();
 		AttackCowCallback.CowHitting();
