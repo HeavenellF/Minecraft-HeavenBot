@@ -13,6 +13,7 @@ import java.util.Random;
 
 public class AutoFarewell implements ClientReceiveMessageEvents.Chat{
     private static boolean response = false;
+    private static String farewell = "matanene!";
 
     @Override
     public void onReceiveChatMessage(Text message, @Nullable SignedMessage signedMessage, @Nullable GameProfile sender, MessageType.Parameters params, Instant receptionTimestamp) {
@@ -23,11 +24,10 @@ public class AutoFarewell implements ClientReceiveMessageEvents.Chat{
         }
     }
 
-
     public static void sendchat() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (response) {
-                client.player.networkHandler.sendChatMessage("matanene!");
+                client.player.networkHandler.sendChatMessage(farewell);
                 response = false;
             }
         });
