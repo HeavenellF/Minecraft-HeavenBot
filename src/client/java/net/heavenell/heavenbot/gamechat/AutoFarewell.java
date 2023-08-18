@@ -27,19 +27,7 @@ public class AutoFarewell implements ClientReceiveMessageEvents.Chat{
     public static void sendchat() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (response) {
-                if (responses != null && responses.length > 0) {
-                    Random random = new Random();
-                    int randomIndex = random.nextInt(responses.length);
-                    String randomResponse = responses[randomIndex];
-                    if (randomResponse.equals("chu")){
-                        client.player.networkHandler.sendChatMessage(STRING_CHU);
-                        client.player.networkHandler.sendChatMessage(senderName + ", " + STRING_RARE_RESPONSE);
-                    }
-                    else {
-                        client.player.networkHandler.sendChatMessage(STRING_ONEMOMENT);
-                        client.player.networkHandler.sendChatMessage(randomResponse);
-                    }
-                }
+                client.player.networkHandler.sendChatMessage("matanene!");
                 response = false;
             }
         });
