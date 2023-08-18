@@ -12,13 +12,14 @@ import java.time.Instant;
 import java.util.Random;
 
 public class AutoFarewell implements ClientReceiveMessageEvents.Chat{
-    private stativ boolean response = false;
+    private static boolean response = false;
 
     @Override
     public void onReceiveChatMessage(Text message, @Nullable SignedMessage signedMessage, @Nullable GameProfile sender, MessageType.Parameters params, Instant receptionTimestamp) {
         String messageString = Text.Serializer.toJson(message).toLowerCase();
         if ((messageString.contains("matanene") || messageString.contains("abayo")) && !sender.getName().equals("Heavenell")) {
             sendchat();
+            response = true;
         }
     }
 
