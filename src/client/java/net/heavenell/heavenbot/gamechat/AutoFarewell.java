@@ -21,7 +21,7 @@ public class AutoFarewell implements ClientReceiveMessageEvents.Chat{
     public void onReceiveChatMessage(Text message, @Nullable SignedMessage signedMessage, @Nullable GameProfile sender, MessageType.Parameters params, Instant receptionTimestamp) {
         String messageString = Text.Serializer.toJson(message).toLowerCase();
         if ((messageString.contains("matanene") || messageString.contains("abayo")) && !sender.getName().equals("Heavenell")) {
-            Duration cooldownDuration = Duration.ofSeconds(0);
+            Duration cooldownDuration = Duration.ofSeconds(10);
             Instant currentTime = Instant.now();
             Duration timeSinceLastFarewell = Duration.between(lastFarewellTime, currentTime);
 
