@@ -21,7 +21,7 @@ public class KeyInputHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(spectatorKey.wasPressed()) {
                 // This happens when our custom key is pressed
-                client.interactionManager.setGameMode(GameMode.SPECTATOR);
+                client.interactionManager.setGameMode(GameMode.CREATIVE);
             }
             else if (survivalKey.wasPressed()){
                 client.interactionManager.setGameMode(GameMode.SURVIVAL);
