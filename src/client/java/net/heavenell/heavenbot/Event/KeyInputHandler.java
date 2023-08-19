@@ -9,25 +9,37 @@ import org.lwjgl.glfw.GLFW;
 
 public class KeyInputHandler {
     public static final String KEY_CATEGORY_TUTORIAL = "key.category.tutorialmod.tutorial";
+    public static final String KEY_CATEGORY_TUTORIAL2 = "key.category.tutorialmod.tutorial2";
     public static final String KEY_DRINK_WATER = "key.tutorialmod.drink_water";
+    public static final String KEY_DRINK_WATER2 = "key.tutorialmod.drink_water2";
 
-    public static KeyBinding drinkingKey;
+
+    public static KeyBinding spectatorKey;
+    public static KeyBinding survivalKey;
 
     public static void registerKeyInputs() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(drinkingKey.wasPressed()) {
+            if(spectatorKey.wasPressed()) {
                 // This happens when our custom key is pressed
-                client.player.networkHandler.sendChatMessage("/roll");
-                client.interactionManager.setGameMode(GameMode.CREATIVE);
+                client.interactionManager.setGameMode(GameMode.SPECTATOR);
+            }
+            else if (survivalKey.wasPressed()){
+                client.interactionManager.setGameMode(GameMode.SURVIVAL);
             }
         });
     }
     public static void register() {
-        drinkingKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        spectatorKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 KEY_DRINK_WATER,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_O,
                 KEY_CATEGORY_TUTORIAL
+        ));
+        survivalKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                KEY_DRINK_WATER2,
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_I,
+                KEY_CATEGORY_TUTORIAL2
         ));
 
         registerKeyInputs();
