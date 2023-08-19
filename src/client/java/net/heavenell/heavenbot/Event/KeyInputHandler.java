@@ -2,8 +2,11 @@ package net.heavenell.heavenbot.Event;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
 import org.lwjgl.glfw.GLFW;
 
@@ -21,10 +24,11 @@ public class KeyInputHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(spectatorKey.wasPressed()) {
                 // This happens when our custom key is pressed
-                client.interactionManager.setGameMode(GameMode.CREATIVE);
+//                client.interactionManager.setGameMode(GameMode.CREATIVE);
+                client.player.networkHandler.sendChatMessage("/roll");
             }
             else if (survivalKey.wasPressed()){
-                client.interactionManager.setGameMode(GameMode.SURVIVAL);
+//                client.interactionManager.setGameMode(GameMode.SURVIVAL);
             }
         });
     }
