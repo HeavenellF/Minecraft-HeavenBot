@@ -3,11 +3,31 @@ package net.heavenell.heavenbot.Event;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.player.PlayerAbilities;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.encryption.NetworkEncryptionUtils;
+import net.minecraft.network.message.LastSeenMessagesCollector;
+import net.minecraft.network.message.MessageBody;
+import net.minecraft.network.message.MessageSignatureData;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
+import net.minecraft.network.packet.c2s.play.UpdatePlayerAbilitiesC2SPacket;
+import net.minecraft.network.packet.s2c.play.PlayerAbilitiesS2CPacket;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.network.ServerPlayerInteractionManager;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
+import net.minecraft.world.World;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyInputHandler {
@@ -24,11 +44,19 @@ public class KeyInputHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(spectatorKey.wasPressed()) {
                 // This happens when our custom key is pressed
-//                client.interactionManager.setGameMode(GameMode.CREATIVE);
                 client.player.networkHandler.sendChatMessage("/roll");
-            }
-            else if (survivalKey.wasPressed()){
+//                mc.interactionManager.setGameModes(GameMode.SURVIVAL, GameMode.CREATIVE);
 //                client.interactionManager.setGameMode(GameMode.SURVIVAL);
+//                client.player.sendAbilitiesUpdate();
+            }
+            else if (survivalKey.wasPressed()) {
+//                PlayerAbilities playerAbilities = client.player.getAbilities();
+//                playerAbilities.setFlySpeed(1f);
+//                mc.interactionManager.setGameModes(GameMode.CREATIVE, GameMode.SURVIVAL);
+//                client.interactionManager.setGameMode(GameMode.CREATIVE);
+//                client.player.getAbilities().flying = true;
+                EntityType.COW.spawn(client.getServer().getOverworld(), null,null,client.player.getBlockPos(), SpawnReason.TRIGGERED, true, true);
+//                client.player.sendAbilitiesUpdate();
             }
         });
     }
