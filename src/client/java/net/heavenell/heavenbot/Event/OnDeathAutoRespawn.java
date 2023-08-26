@@ -10,7 +10,7 @@ import javax.swing.*;
 public class OnDeathAutoRespawn {
     public static ActionResult onDeath() {
         MinecraftClient mc = MinecraftClient.getInstance();
-        if (mc.player.isDead()) {
+        if ( mc.player != null && mc.player.isDead()) {
             mc.player.networkHandler.sendPacket(new ClientStatusC2SPacket(ClientStatusC2SPacket.Mode.PERFORM_RESPAWN));
         }
         return ActionResult.PASS;
