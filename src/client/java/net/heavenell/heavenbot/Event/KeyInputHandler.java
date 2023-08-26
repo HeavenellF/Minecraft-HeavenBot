@@ -1,38 +1,28 @@
 package net.heavenell.heavenbot.Event;
 
+import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerAbilities;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.encryption.NetworkEncryptionUtils;
-import net.minecraft.network.message.LastSeenMessagesCollector;
-import net.minecraft.network.message.MessageBody;
-import net.minecraft.network.message.MessageSignatureData;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
+import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.network.packet.c2s.play.UpdatePlayerAbilitiesC2SPacket;
 import net.minecraft.network.packet.s2c.play.PlayerAbilitiesS2CPacket;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.command.GameModeCommand;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.network.ServerPlayerInteractionManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
-import net.minecraft.world.World;
 import org.lwjgl.glfw.GLFW;
+import org.spongepowered.asm.mixin.injection.Inject;
 
-public class KeyInputHandler {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+public class KeyInputHandler{
     public static final String KEY_CATEGORY_TUTORIAL = "key.category.tutorialmod.tutorial";
     public static final String KEY_CATEGORY_TUTORIAL2 = "key.category.tutorialmod.tutorial2";
     public static final String KEY_DRINK_WATER = "key.tutorialmod.drink_water";
@@ -57,8 +47,10 @@ public class KeyInputHandler {
 //                mc.interactionManager.setGameModes(GameMode.CREATIVE, GameMode.SURVIVAL);
 //                client.interactionManager.setGameMode(GameMode.CREATIVE);
 //                client.player.getAbilities().flying = true;
-                EntityType.COW.spawn(client.getServer().getOverworld(), null,null,client.player.getBlockPos(), SpawnReason.TRIGGERED, true, true);
-//                client.player.sendAbilitiesUpdate();
+//                client.player.getAbilities().allowFlying = true;
+//               client.player.getAbilities().invulnerable = true;
+//                MinecraftClient.getInstance().player.networkHandler.sendPacket(new UpdatePlayerAbilitiesC2SPacket(MinecraftClient.getInstance().player.getAbilities()));
+                MinecraftClient.getInstance().player.networkHandler.sendPacket(new PlayerAbilitiesS2CPacket(MinecraftClient.getInstance().player.getAbilities()));
             }
         });
     }
@@ -78,4 +70,5 @@ public class KeyInputHandler {
 
         registerKeyInputs();
     }
+
 }

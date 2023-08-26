@@ -2,6 +2,7 @@ package net.heavenell.heavenbot.gamechat;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 public class AutoAccept implements ClientReceiveMessageEvents.Game{
