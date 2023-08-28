@@ -1,11 +1,9 @@
 package net.heavenell.heavenbot.Event;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ClientStatusC2SPacket;
 import net.minecraft.util.ActionResult;
 
-import javax.swing.*;
 
 public class OnDeathAutoRespawn {
     public static ActionResult onDeath() {
