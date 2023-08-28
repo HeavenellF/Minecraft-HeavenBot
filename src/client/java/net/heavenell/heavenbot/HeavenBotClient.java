@@ -8,7 +8,6 @@ import net.heavenell.heavenbot.Event.AttackCowCallback;
 import net.heavenell.heavenbot.Event.KeyInputHandler;
 import net.heavenell.heavenbot.Event.OnDeathAutoRespawn;
 import net.heavenell.heavenbot.gamechat.*;
-import net.heavenell.heavenbot.misc.AutoHeal;
 
 public class HeavenBotClient implements ClientModInitializer {
 	@Override
