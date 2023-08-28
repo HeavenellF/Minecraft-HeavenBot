@@ -55,7 +55,6 @@ public class KeyInputHandler{
 //                MinecraftClient.getInstance().player.networkHandler.sendPacket(new UpdatePlayerAbilitiesC2SPacket(MinecraftClient.getInstance().player.getAbilities()));
 //                MinecraftClient.getInstance().player.networkHandler.sendPacket(new PlayerAbilitiesS2CPacket(MinecraftClient.getInstance().player.getAbilities()));
                 client.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.Full(45d,45d, 45d, 45.0f,45.0f, true));
-                client.player.setClientPermissionLevel(0);
             }
         });
     }
