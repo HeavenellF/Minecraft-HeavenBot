@@ -35,7 +35,6 @@ public class HeavenBotClient implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			OnDeathAutoRespawn.onDeath();
-			client.player.fallDistance = 0.0f;
 		});
 	}
 }
