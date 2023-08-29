@@ -14,12 +14,12 @@ public class OnDeathAutoRespawn {
             if (mc.player.isDead()) {
                 mc.player.networkHandler.sendPacket(new ClientStatusC2SPacket(ClientStatusC2SPacket.Mode.PERFORM_RESPAWN));
             }
-            if (mc.player.isSneaking()){
-                mc.player.getAbilities().setFlySpeed(0.35f);
-            }
-            else mc.player.getAbilities().setFlySpeed(1f);
-            mc.player.fallDistance = 0.0f;
-            mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
+//            if (mc.player.isSneaking()){
+//                mc.player.getAbilities().setFlySpeed(0.35f);
+//            }
+//            else mc.player.getAbilities().setFlySpeed(1f);
+//            mc.player.fallDistance = 0.0f;
+//            mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
         }
         return ActionResult.PASS;
     }
