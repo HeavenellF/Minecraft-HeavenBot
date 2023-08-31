@@ -4,6 +4,7 @@ import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -44,7 +45,8 @@ public class KeyInputHandler{
 //                client.player.networkHandler.sendChatMessage("/roll");
 //                mc.interactionManager.setGameModes(GameMode.SURVIVAL, GameMode.CREATIVE);
 //                client.interactionManager.setGameMode(GameMode.SURVIVAL);
-                client.player.getAbilities().allowFlying = false;
+//                client.player.getAbilities().allowFlying = false;
+                client.setScreen(new TitleScreen(true));
             }
             else if (survivalKey.wasPressed()) {
 //                PlayerAbilities playerAbilities = client.player.getAbilities();
@@ -52,7 +54,7 @@ public class KeyInputHandler{
 //                mc.interactionManager.setGameModes(GameMode.CREATIVE, GameMode.SURVIVAL);
 //                client.interactionManager.setGameMode(GameMode.CREATIVE);
 //                client.player.getAbilities().flying = true;
-                client.player.getAbilities().allowFlying = true;
+//                client.player.getAbilities().allowFlying = true;
 //                client.player.getAbilities().invulnerable = true;
 //                MinecraftClient.getInstance().player.networkHandler.sendPacket(new UpdatePlayerAbilitiesC2SPacket(MinecraftClient.getInstance().player.getAbilities()));
 //                MinecraftClient.getInstance().player.networkHandler.sendPacket(new PlayerAbilitiesS2CPacket(MinecraftClient.getInstance().player.getAbilities()));
