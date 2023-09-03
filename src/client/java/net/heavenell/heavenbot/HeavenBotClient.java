@@ -8,6 +8,7 @@ import net.heavenell.heavenbot.Event.AttackCowCallback;
 import net.heavenell.heavenbot.Event.KeyInputHandler;
 import net.heavenell.heavenbot.Event.OnDeathAutoRespawn;
 import net.heavenell.heavenbot.gamechat.*;
+import net.heavenell.heavenbot.thread.threadCaller;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -36,5 +37,7 @@ public class HeavenBotClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			OnDeathAutoRespawn.onDeath();
 		});
+
+		ClientReceiveMessageEvents.CHAT.register(new threadCaller());
 	}
 }
