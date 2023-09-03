@@ -42,3 +42,4 @@ replay_*.log
 # private file
 src/client/resources/KoyoriOP.json
 src/client/resources/greeting.json
+src/client/java/net/heavenell/heavenbot/thread
