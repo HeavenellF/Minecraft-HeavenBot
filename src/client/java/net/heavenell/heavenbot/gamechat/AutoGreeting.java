@@ -31,7 +31,7 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
             playerName = extractPlayerNameFromMessage(messageString);
             response = true;
             sendchat();
-        } else if (messageExtraText.contains("joined the game")) {
+        } else if (messageExtraText != null && messageExtraText.contains("joined the game")) {
             playerName = extractPlayerNameFromExtraText(messageExtraText);
             response = true;
             sendchat();
