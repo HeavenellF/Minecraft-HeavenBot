@@ -91,5 +91,21 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
         return null;
     }
 
-    
+    private static String parseExtraText(String messageString){
+        try {
+            JsonObject json = JsonParser.parseString(messageString).getAsJsonObject();
+            if (json.has("extra")) {
+                JsonArray extraArray = json.getAsJsonArray("extra");
+                if (extraArray.size() > 0) {
+                    JsonObject firstExtraObject = extraArray.get(0).getAsJsonObject();
+                    if (firstExtraObject.has("text")) {
+                        return firstExtraObject.get("text").getAsString();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
