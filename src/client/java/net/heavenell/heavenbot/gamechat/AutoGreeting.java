@@ -17,11 +17,13 @@ import java.util.Map;
 public class AutoGreeting implements ClientReceiveMessageEvents.Game{
     private static boolean response = false;
     private static String playerName;
+    private static String messageTranslate;
     private static final Map<String, String> greetingsMap = new HashMap<>();
     @Override
     public void onReceiveGameMessage(Text message, boolean overlay) {
         String messageString = Text.Serializer.toJson(message);
         System.out.println(messageString);
+        messageTranslate =
         if (messageString.contains("multiplayer.player.joined")) {
             playerName = extractPlayerNameFromMessage(messageString);
             response = true;
@@ -75,6 +77,11 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
     }
 
     private static String parseTranslate(String messageString) {
-        
+        try {
+            JsonObject json = JsonParser.parseString(messageString).getAsJsonObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
