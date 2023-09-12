@@ -10,6 +10,7 @@ import net.minecraft.text.Text;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
     @Override
     public void onReceiveGameMessage(Text message, boolean overlay) {
         String messageString = Text.Serializer.toJson(message);
+        System.out.println(messageString);
         if (messageString.contains("multiplayer.player.joined")) {
             playerName = extractPlayerNameFromMessage(messageString);
             response = true;
@@ -70,5 +72,9 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static String parseTranslate(String messageString) {
+        
     }
 }
