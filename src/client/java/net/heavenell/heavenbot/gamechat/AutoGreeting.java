@@ -31,6 +31,10 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
             playerName = extractPlayerNameFromMessage(messageString);
             response = true;
             sendchat();
+        } else if (messageExtraText.contains("joined the game")) {
+            playerName = extractPlayerNameFromExtraText(messageExtraText);
+            response = true;
+            sendchat();
         }
     }
 
@@ -107,5 +111,13 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static String extractPlayerNameFromExtraText(String messageExtraText){
+        String[] parts = messageExtraText.split("\\s+");
+        if (parts.length > 0) {
+            return parts[0];
+        }
+        else return null;
     }
 }
