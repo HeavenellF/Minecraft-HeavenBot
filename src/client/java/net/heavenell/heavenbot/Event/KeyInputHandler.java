@@ -61,6 +61,7 @@ public class KeyInputHandler{
 //                client.interactionManager.setGameMode(GameMode.CREATIVE);
 //                client.player.getAbilities().flying = true;
 //                client.player.swingHand(Hand.OFF_HAND);
+                NoFallDamage = true;
                 client.player.getAbilities().allowFlying = true;
 //                client.player.getAbilities().invulnerable = true;
 //                MinecraftClient.getInstance().player.networkHandler.sendPacket(new UpdatePlayerAbilitiesC2SPacket(MinecraftClient.getInstance().player.getAbilities()));
