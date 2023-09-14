@@ -20,6 +20,7 @@ public class OnDeathAutoRespawn {
                 } else mc.player.getAbilities().setFlySpeed(1f);
                 mc.player.fallDistance = 0.0f;
             }
+            else mc.player.getAbilities().setFlySpeed(0.05f);
             mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
         }
         return ActionResult.PASS;
