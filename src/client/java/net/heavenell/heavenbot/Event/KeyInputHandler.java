@@ -21,6 +21,7 @@ import net.minecraft.server.command.GameModeCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.world.GameMode;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -38,6 +39,7 @@ public class KeyInputHandler{
 
     public static KeyBinding spectatorKey;
     public static KeyBinding survivalKey;
+    public static boolean NoFallDamage = false;
 
     public static void registerKeyInputs() {
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
@@ -48,7 +50,9 @@ public class KeyInputHandler{
 //                client.interactionManager.setGameMode(GameMode.SURVIVAL);
                 client.player.getAbilities().allowFlying = false;
 //                client.setScreen(new GameMenuScreen(true));
-//                client.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(100.0f,100.0f,0.0f,false));
+//                client.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(100.0f,100.0f,0.0f,false));
+//                client.player.fallDistance = 60.0f;
+//                client.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
             }
             else if (survivalKey.wasPressed()) {
 //                PlayerAbilities playerAbilities = client.player.getAbilities();
@@ -56,6 +60,7 @@ public class KeyInputHandler{
 //                mc.interactionManager.setGameModes(GameMode.CREATIVE, GameMode.SURVIVAL);
 //                client.interactionManager.setGameMode(GameMode.CREATIVE);
 //                client.player.getAbilities().flying = true;
+//                client.player.swingHand(Hand.OFF_HAND);
                 client.player.getAbilities().allowFlying = true;
 //                client.player.getAbilities().invulnerable = true;
 //                MinecraftClient.getInstance().player.networkHandler.sendPacket(new UpdatePlayerAbilitiesC2SPacket(MinecraftClient.getInstance().player.getAbilities()));
