@@ -1,6 +1,7 @@
 package net.heavenell.heavenbot.gamechat;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -29,7 +30,10 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
     @Override
     public void onReceiveChatMessage(Text message, @Nullable SignedMessage signedMessage, @Nullable GameProfile sender, MessageType.Parameters params, Instant receptionTimestamp) {
         String messageString = Text.Serializer.toJson(message).toLowerCase();
-        if (messageString.contains("heaven") && !sender.getName().toLowerCase().contains("heaven") && !messageString.contains("whisper")) {
+        // this part check the "translate" if its not command.message.display or whisper
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = jsonParser.parse(messageString).getAsJsonObject();
+        if (messageString.contains("heaven") && !sender.getName().toLowerCase().contains("heaven") && !jsonObject.get("translate").getAsString().contains("commands.message.display")) {
             Duration cooldownDuration = Duration.ofSeconds(10);
             Instant currentTime = Instant.now();
             Duration timeSinceLastResponse = Duration.between(lastResponseTime, currentTime);
