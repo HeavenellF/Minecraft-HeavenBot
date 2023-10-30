@@ -29,7 +29,7 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
     @Override
     public void onReceiveChatMessage(Text message, @Nullable SignedMessage signedMessage, @Nullable GameProfile sender, MessageType.Parameters params, Instant receptionTimestamp) {
         String messageString = Text.Serializer.toJson(message).toLowerCase();
-        if (messageString.contains("heaven") && !sender.getName().toLowerCase().contains("heaven")) {
+        if (messageString.contains("heaven") && !sender.getName().toLowerCase().contains("heaven") && !messageString.contains("whisper")) {
             Duration cooldownDuration = Duration.ofSeconds(10);
             Instant currentTime = Instant.now();
             Duration timeSinceLastResponse = Duration.between(lastResponseTime, currentTime);
