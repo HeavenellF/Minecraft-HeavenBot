@@ -1,5 +1,7 @@
 package net.heavenell.heavenbot.gamechat;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
@@ -20,7 +22,10 @@ public class AutoFarewell implements ClientReceiveMessageEvents.Chat{
     @Override
     public void onReceiveChatMessage(Text message, @Nullable SignedMessage signedMessage, @Nullable GameProfile sender, MessageType.Parameters params, Instant receptionTimestamp) {
         String messageString = Text.Serializer.toJson(message).toLowerCase();
-        if ((messageString.contains("matanene") || messageString.contains("abayo")) && !sender.getName().equals("Heavenell")) {
+        // this part check the "translate" if its not command.message.display or whisper
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = jsonParser.parse(messageString).getAsJsonObject();
+        if ((messageString.contains("matanene") || messageString.contains("abayo")) && !sender.getName().equals("Heavenell") && !jsonObject.get("translate").getAsString().contains("commands.message.display")) {
             Duration cooldownDuration = Duration.ofSeconds(10);
             Instant currentTime = Instant.now();
             Duration timeSinceLastFarewell = Duration.between(lastFarewellTime, currentTime);
