@@ -21,6 +21,7 @@ import net.minecraft.server.command.GameModeCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.world.GameMode;
 import org.lwjgl.glfw.GLFW;
@@ -39,7 +40,7 @@ public class KeyInputHandler{
 
     public static KeyBinding spectatorKey;
     public static KeyBinding survivalKey;
-    public static boolean NoFallDamage = false;
+    public static boolean AutoRoll = false;
 
     public static void registerKeyInputs() {
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
@@ -48,7 +49,7 @@ public class KeyInputHandler{
                 client.player.networkHandler.sendChatMessage("/roll");
 //                mc.interactionManager.setGameModes(GameMode.SURVIVAL, GameMode.CREATIVE);
 //                client.interactionManager.setGameMode(GameMode.SURVIVAL);
-                client.player.getAbilities().allowFlying = false;
+//                client.player.getAbilities().allowFlying = false;
 //                client.setScreen(new GameMenuScreen(true));
 //                client.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(100.0f,100.0f,0.0f,false));
 //                client.player.fallDistance = 60.0f;
@@ -61,10 +62,11 @@ public class KeyInputHandler{
 //                client.interactionManager.setGameMode(GameMode.CREATIVE);
 //                client.player.getAbilities().flying = true;
 //                client.player.swingHand(Hand.OFF_HAND);
-                if (NoFallDamage == false){
-                    NoFallDamage = true;
-                } else NoFallDamage = false;
-                client.player.getAbilities().allowFlying = true;
+                if (AutoRoll == false){
+                    AutoRoll = true;
+                    client.player.sendMessage(Text.literal("Auto roll On"));
+                } else AutoRoll = false;
+//                client.player.getAbilities().allowFlying = true;
 //                client.player.getAbilities().invulnerable = true;
 //                MinecraftClient.getInstance().player.networkHandler.sendPacket(new UpdatePlayerAbilitiesC2SPacket(MinecraftClient.getInstance().player.getAbilities()));
 //                MinecraftClient.getInstance().player.networkHandler.sendPacket(new PlayerAbilitiesS2CPacket(MinecraftClient.getInstance().player.getAbilities()));
