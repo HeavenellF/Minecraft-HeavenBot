@@ -35,6 +35,7 @@ public class HeavenBotClient implements ClientModInitializer {
 		AttackCowCallback.CowHitting();
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			AutoRoll.roll();
 			OnDeathAutoRespawn.onDeath();
 		});
 
