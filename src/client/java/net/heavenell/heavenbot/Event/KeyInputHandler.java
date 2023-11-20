@@ -64,8 +64,12 @@ public class KeyInputHandler{
 //                client.player.swingHand(Hand.OFF_HAND);
                 if (AutoRoll == false){
                     AutoRoll = true;
-                    client.player.sendMessage(Text.literal("Auto roll On"));
-                } else AutoRoll = false;
+                    client.player.sendMessage(Text.literal("AutoRoll on"));
+                } else{
+                    AutoRoll = false;
+                    client.player.sendMessage(Text.literal("AutoRoll off"));
+                }
+
 //                client.player.getAbilities().allowFlying = true;
 //                client.player.getAbilities().invulnerable = true;
 //                MinecraftClient.getInstance().player.networkHandler.sendPacket(new UpdatePlayerAbilitiesC2SPacket(MinecraftClient.getInstance().player.getAbilities()));
