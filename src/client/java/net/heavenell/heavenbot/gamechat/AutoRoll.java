@@ -10,7 +10,7 @@ public class AutoRoll {
         MinecraftClient mc = MinecraftClient.getInstance();
         tickCounter++;
         if (mc.player != null && KeyInputHandler.AutoRoll) {
-            if (tickCounter >= 20) {
+            if (tickCounter >= 635) {
                 // 620 ticks ≈ 31 seconds
                 tickCounter = 0;
                 sendRollCommandToChat();
