@@ -32,8 +32,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class KeyInputHandler{
-    public static final String KEY_CATEGORY_TUTORIAL = "key.category.tutorialmod.tutorial";
-    public static final String KEY_CATEGORY_TUTORIAL2 = "key.category.tutorialmod.tutorial2";
+    public static final String KEY_CATEGORY_TUTORIAL = "HeavenBot";
     public static final String KEY_DRINK_WATER = "key.tutorialmod.drink_water";
     public static final String KEY_DRINK_WATER2 = "key.tutorialmod.drink_water2";
 
@@ -42,11 +41,20 @@ public class KeyInputHandler{
     public static KeyBinding survivalKey;
     public static boolean AutoRoll = false;
 
+    public static boolean FlyHack = false;
+
     public static void registerKeyInputs() {
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
             if(spectatorKey.wasPressed()) {
                 // This happens when our custom key is pressed
                 client.player.networkHandler.sendChatMessage("/roll");
+//                if (FlyHack == false){
+//                    FlyHack = true;
+//                    client.player.getAbilities().allowFlying = true;
+//                } else{
+//                    FlyHack = false;
+//                    client.player.getAbilities().allowFlying = false;
+//                }
 //                mc.interactionManager.setGameModes(GameMode.SURVIVAL, GameMode.CREATIVE);
 //                client.interactionManager.setGameMode(GameMode.SURVIVAL);
 //                client.player.getAbilities().allowFlying = false;
@@ -90,7 +98,7 @@ public class KeyInputHandler{
                 KEY_DRINK_WATER2,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_I,
-                KEY_CATEGORY_TUTORIAL2
+                KEY_CATEGORY_TUTORIAL
         ));
 
         registerKeyInputs();
