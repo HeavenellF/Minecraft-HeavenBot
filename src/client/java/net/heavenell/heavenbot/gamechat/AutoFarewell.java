@@ -21,7 +21,7 @@ public class AutoFarewell implements ClientReceiveMessageEvents.Chat{
 
     @Override
     public void onReceiveChatMessage(Text message, @Nullable SignedMessage signedMessage, @Nullable GameProfile sender, MessageType.Parameters params, Instant receptionTimestamp) {
-        String messageString = Text.Serializer.toJson(message).toLowerCase();
+        String messageString = Text.Serialization.toJsonString(message).toLowerCase();
         // this part check the "translate" if its not command.message.display or whisper
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = jsonParser.parse(messageString).getAsJsonObject();

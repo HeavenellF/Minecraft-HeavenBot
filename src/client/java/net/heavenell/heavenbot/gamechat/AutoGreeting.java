@@ -22,7 +22,7 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
     private static final Map<String, String> greetingsMap = new HashMap<>();
     @Override
     public void onReceiveGameMessage(Text message, boolean overlay) {
-        String messageString = Text.Serializer.toJson(message);
+        String messageString = Text.Serialization.toJsonString(message);
         messageTranslate = parseTranslate(messageString);
         if (messageTranslate == null){
             messageExtraText = parseExtraText(messageString);
