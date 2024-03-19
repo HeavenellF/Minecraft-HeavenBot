@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.heavenell.heavenbot.Event.AttackCowCallback;
 import net.heavenell.heavenbot.Event.KeyInputHandler;
 import net.heavenell.heavenbot.Event.OnDeathAutoRespawn;
+import net.heavenell.heavenbot.Event.RegisterKey;
 import net.heavenell.heavenbot.gamechat.*;
 import net.heavenell.heavenbot.thread.threadCaller;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -18,6 +19,7 @@ public class HeavenBotClient implements ClientModInitializer {
 	public void onInitializeClient() {
 
 		KeyInputHandler.register();
+		RegisterKey.register();
 
 		AttackEntityCallback.EVENT.register(new AttackCowCallback());
 
