@@ -18,39 +18,10 @@ repositories {
 	// for more information about repositories.
 }
 
-loom {
-    splitEnvironmentSourceSets()
-
-	mods {
-		"heavenbot" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
-    runs {
-		// This adds a new gradle task that runs the datagen API: "gradlew runDatagen"
-		datagen {
-			inherit server
-			name "Data Generation"
-			vmArg "-Dfabric-api.datagen"
-			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-			vmArg "-Dfabric-api.datagen.modid=heavenbot"
- 
-			runDir "build/datagen"
-		}
-	}
+fabricApi {
+	configureDataGeneration()
 }
 
-// Add the generated resources to the main source set
-sourceSets {
-	main {
-		resources {
-			srcDirs += [
-					'src/main/generated'
-			]
-		}
-	}
-}
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"

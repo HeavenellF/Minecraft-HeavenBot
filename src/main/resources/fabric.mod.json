@@ -9,9 +9,9 @@
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/HeavenellF/Minecraft-HeavenBot"
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "MIT License",
+	"license": "MIT",
 	"icon": "assets/heavenbot/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -22,22 +22,17 @@
 			"net.heavenell.heavenbot.HeavenBotClient"
 		],
 		"fabric-datagen": [
-			"net.heavenell.ExampleModDataGenerator"
+			"net.heavenell.heavenbot.HeavenBotDataGenerator"
 		]
 	},
 	"mixins": [
-		"heavenbot.mixins.json",
-		{
-			"config": "heavenbot.client.mixins.json",
-			"environment": "client"
-		}
+		"heavenbot.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.21",
-		"minecraft": ">=1.20.4",
+		"fabricloader": ">=0.15.7",
+		"minecraft": "~1.20.4",
 		"java": ">=17",
-		"fabric-api": "*",
-		"fabric-key-binding-api-v1": "*"
+		"fabric-api": "*"
 	},
 	"suggests": {
 		"another-mod": "*"

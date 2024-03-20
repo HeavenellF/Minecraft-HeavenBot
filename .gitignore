@@ -38,8 +38,3 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
-
-# private file
-src/client/resources/KoyoriOP.json
-src/client/resources/greeting.json
-src/client/java/net/heavenell/heavenbot/thread
