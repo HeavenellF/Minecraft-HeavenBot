@@ -1,8 +1,12 @@
 package net.heavenell.heavenbot.Event;
 
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.heavenell.heavenbot.gui.SettingScreen;
+import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 public class RegisterKey {
@@ -11,6 +15,15 @@ public class RegisterKey {
     public static final String KEY_CONFIG = "Open setting";
 
     public static KeyBinding configKey;
+    public static void registerKeyInputs(){
+        ClientTickEvents.START_CLIENT_TICK.register(client -> {
+            if (configKey.wasPressed()) {
+                client.setScreen(new ChatScreen("Hello"));
+                client.setScreen(new SettingScreen());
+                client.player.sendMessage(Text.literal("You just pressed the SettingButton"));
+            }
+        });
+    }
     public static void register() {
         configKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 KEY_CONFIG,
@@ -19,6 +32,6 @@ public class RegisterKey {
                 KEY_CATEGORY_TUTORIAL
         ));
 
-//        registerKeyInputs();
+        registerKeyInputs();
     }
 }
