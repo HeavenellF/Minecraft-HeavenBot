@@ -18,7 +18,6 @@ public class RegisterKey {
     public static void registerKeyInputs(){
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
             if (configKey.wasPressed()) {
-                client.setScreen(new ChatScreen("Hello"));
                 client.setScreen(new SettingScreen());
                 client.player.sendMessage(Text.literal("You just pressed the SettingButton"));
             }
