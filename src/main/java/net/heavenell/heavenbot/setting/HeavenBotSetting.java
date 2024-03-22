@@ -1,32 +1,33 @@
 package net.heavenell.heavenbot.setting;
 
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.option.SimpleOption;
-
 public class HeavenBotSetting {
 
-    private static boolean autoGreeting = true;
-    private static boolean autoResponse = true;
-    private static boolean autoAccept = true;
+    private boolean autoGreeting = true;
+    private boolean autoResponse = true;
+    private boolean autoAccept = true;
 
-    public static boolean isAutoGreeting() {
-        return autoGreeting;
+    public boolean isAutoGreeting() {
+        return this.autoGreeting;
     }
 
-    public static boolean isAutoResponse() {
+    public boolean isAutoResponse() {
         return autoResponse;
     }
 
-    public static boolean isAutoAccept() {
+    public boolean isAutoAccept() {
         return autoAccept;
     }
 
-    public static void setAutoGreeting(boolean autoGreeting) {
-        if(autoGreeting) {
-            HeavenBotSetting.autoGreeting = false;
-        }
-        else{
-            HeavenBotSetting.autoGreeting = true;
-        }
+    public void toggleAutoGreeting() {
+        this.autoGreeting = !this.autoGreeting;
+        System.out.println(this.autoGreeting);
+    }
+    public void toggleAutoResponse() {
+        this.autoResponse = !this.autoResponse;
+        System.out.println(this.autoResponse);
+    }
+    public void toggleAutoAccept() {
+        this.autoAccept = !this.autoAccept;
+        System.out.println(this.autoAccept);
     }
 }
