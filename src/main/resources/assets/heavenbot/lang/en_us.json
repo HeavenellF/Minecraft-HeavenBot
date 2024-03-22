@@ -1,3 +1,5 @@
 {
-  "heavenbot.setting_title" : "HeavenBot Setting"
+  "heavenbot.setting_title" : "HeavenBot Setting",
+  "heavenbot.test_button" : "Test Button",
+  "heavenbot.autogreet" : "Auto Greeting"
 }
