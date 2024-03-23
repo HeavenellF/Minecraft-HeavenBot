@@ -5,7 +5,10 @@ public class HeavenBotSetting {
     private boolean autoGreeting = true;
     private boolean autoResponse = true;
     private boolean autoAccept = true;
+    private static final HeavenBotSetting instance = new HeavenBotSetting();
 
+    private HeavenBotSetting() {
+    }
     public boolean isAutoGreeting() {
         return this.autoGreeting;
     }
@@ -29,5 +32,9 @@ public class HeavenBotSetting {
     public void toggleAutoAccept() {
         this.autoAccept = !this.autoAccept;
         System.out.println(this.autoAccept);
+    }
+
+    public static HeavenBotSetting getInstance(){
+        return instance;
     }
 }
