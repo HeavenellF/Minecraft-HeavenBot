@@ -3,8 +3,9 @@ package net.heavenell.heavenbot.gamechat;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
+import net.heavenell.heavenbot.setting.HeavenBotSetting;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.message.MessageType;
 import net.minecraft.network.message.SignedMessage;
 import net.minecraft.text.Text;
@@ -12,9 +13,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Random;
 
 public class AutoFarewell implements ClientReceiveMessageEvents.Chat{
+    private static final HeavenBotSetting setting = HeavenBotSetting.getInstance();
     private static boolean response = false;
     private Instant lastFarewellTime = Instant.MIN;
     private static String farewell = "matanene!";
@@ -30,20 +31,17 @@ public class AutoFarewell implements ClientReceiveMessageEvents.Chat{
             Instant currentTime = Instant.now();
             Duration timeSinceLastFarewell = Duration.between(lastFarewellTime, currentTime);
 
-            if (timeSinceLastFarewell.compareTo(cooldownDuration) >= 0) {
+            if (timeSinceLastFarewell.compareTo(cooldownDuration) >= 0 && setting.isAutoFarewell()) {
                 response = true;
                 lastFarewellTime = currentTime;
-                sendchat();
             }
         }
     }
 
-    public static void sendchat() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (response) {
-                client.player.networkHandler.sendChatMessage(farewell);
-                response = false;
-            }
-        });
+    public static void sendchat(MinecraftClient client) {
+        if (response) {
+            client.player.networkHandler.sendChatMessage(farewell);
+            response = false;
+        }
     }
 }

@@ -6,6 +6,8 @@ import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
+import net.heavenell.heavenbot.setting.HeavenBotSetting;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.message.MessageType;
 import net.minecraft.network.message.SignedMessage;
 import net.minecraft.text.Text;
@@ -20,6 +22,7 @@ import java.util.Random;
 public class AutoResponse implements ClientReceiveMessageEvents.Chat{
     private static boolean response = false;
     private Instant lastResponseTime = Instant.MIN;
+    private static final HeavenBotSetting setting = HeavenBotSetting.getInstance();
 
     private static final String STRING_ONEMOMENT = ",onemoment";
     private static final String STRING_CHU = ",chu";
@@ -38,11 +41,10 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
             Instant currentTime = Instant.now();
             Duration timeSinceLastResponse = Duration.between(lastResponseTime, currentTime);
 
-            if (timeSinceLastResponse.compareTo(cooldownDuration) >= 0) {
+            if (timeSinceLastResponse.compareTo(cooldownDuration) >= 0 && setting.isAutoResponse()) {
                 response = true;
                 lastResponseTime = currentTime;
                 senderName = sender.getName();
-                sendchat();
             }
         }
     }
@@ -64,24 +66,22 @@ public class AutoResponse implements ClientReceiveMessageEvents.Chat{
         }
     }
 
-    public static void sendchat() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (response) {
-                if (responses != null && responses.length > 0) {
-                    Random random = new Random();
-                    int randomIndex = random.nextInt(responses.length);
-                    String randomResponse = responses[randomIndex];
-                    if (randomResponse.equals("chu")){
-                        client.player.networkHandler.sendChatMessage(STRING_CHU);
-                        client.player.networkHandler.sendChatMessage(senderName + ", " + STRING_RARE_RESPONSE);
-                    }
-                    else {
-                        client.player.networkHandler.sendChatMessage(STRING_ONEMOMENT);
-                        client.player.networkHandler.sendChatMessage(randomResponse);
-                    }
+    public static void sendchat(MinecraftClient client) {
+        if (response) {
+            if (responses != null && responses.length > 0) {
+                Random random = new Random();
+                int randomIndex = random.nextInt(responses.length);
+                String randomResponse = responses[randomIndex];
+                if (randomResponse.equals("chu")){
+                    client.player.networkHandler.sendChatMessage(STRING_CHU);
+                    client.player.networkHandler.sendChatMessage(senderName + ", " + STRING_RARE_RESPONSE);
                 }
-                response = false;
+                else {
+                    client.player.networkHandler.sendChatMessage(STRING_ONEMOMENT);
+                    client.player.networkHandler.sendChatMessage(randomResponse);
+                }
             }
-        });
+            response = false;
+        }
     }
 }

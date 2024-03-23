@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
+import net.heavenell.heavenbot.setting.HeavenBotSetting;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
 import java.io.InputStream;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AutoGreeting implements ClientReceiveMessageEvents.Game{
+    private static final HeavenBotSetting setting = HeavenBotSetting.getInstance();
     private static boolean response = false;
     private static String playerName;
     private static String messageTranslate;
@@ -24,30 +27,29 @@ public class AutoGreeting implements ClientReceiveMessageEvents.Game{
     public void onReceiveGameMessage(Text message, boolean overlay) {
         String messageString = Text.Serialization.toJsonString(message);
         messageTranslate = parseTranslate(messageString);
-        if (messageTranslate == null){
-            messageExtraText = parseExtraText(messageString);
+        if (setting.isAutoGreeting()){
+            if (messageTranslate == null){
+                messageExtraText = parseExtraText(messageString);
+            }
+            if (messageTranslate != null && messageTranslate.contains("multiplayer.player.joined")) {
+                playerName = extractPlayerNameFromMessage(messageString);
+                response = true;
+            } else if (messageExtraText != null && messageExtraText.contains("joined the game")) {
+                playerName = extractPlayerNameFromExtraText(messageExtraText);
+                response = true;
+            }
         }
-        if (messageTranslate != null && messageTranslate.contains("multiplayer.player.joined")) {
-            playerName = extractPlayerNameFromMessage(messageString);
-            response = true;
-            sendchat();
-        } else if (messageExtraText != null && messageExtraText.contains("joined the game")) {
-            playerName = extractPlayerNameFromExtraText(messageExtraText);
-            response = true;
-            sendchat();
-        }
+
     }
 
-    public static void sendchat() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (response) {
-                if (playerName != null) {
-                    String greeting = greetingsMap.getOrDefault(playerName, "Hi");
-                    client.player.networkHandler.sendChatMessage(greeting);
-                }
-                response = false;
+    public static void sendchat(MinecraftClient client) {
+        if (response) {
+            if (playerName != null) {
+                String greeting = greetingsMap.getOrDefault(playerName, "Hi");
+                client.player.networkHandler.sendChatMessage(greeting);
             }
-        });
+            response = false;
+        }
     }
 
     public static void loadGreetings() {
